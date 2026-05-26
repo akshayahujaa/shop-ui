@@ -54,7 +54,7 @@ export const Footer = () => {
         fontSize: '0.8rem',
         color: 'var(--text-muted)'
       }}>
-        © {new Date().getFullYear()} E-Shop. Designed with ❤️ by Google DeepMind. All rights reserved.
+        © {new Date().getFullYear()} E-Shop. Designed with ❤️ by Akshay Ahuja. All rights reserved.
       </div>
     </footer>
   );
