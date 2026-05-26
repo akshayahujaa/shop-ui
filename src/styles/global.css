@@ -76,13 +76,14 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: var(--radius-md);
   font-size: 0.95rem;
   font-weight: 500;
-  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .input-field:focus {
   background-color: var(--surface);
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px var(--primary-light);
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--primary), var(--shadow-md);
 }
 
 .error-message {
@@ -124,10 +125,14 @@ h1, h2, h3, h4, h5, h6 {
   padding: 14px 28px;
   border-radius: var(--radius-md);
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 700;
   font-family: var(--font-header);
   transition: transform var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
   cursor: pointer;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
 }
 
 .btn:active {
@@ -137,20 +142,20 @@ h1, h2, h3, h4, h5, h6 {
 .btn-primary {
   background-color: var(--primary);
   color: #ffffff;
-  box-shadow: 0 4px 14px 0 hsl(var(--hue-primary), 84%, 75%);
+  box-shadow: 0 4px 14px 0 hsl(var(--hue-primary), 58%, 78%);
 }
 
 .btn-primary:hover {
   background-color: var(--primary-hover);
-  box-shadow: 0 6px 20px 0 hsl(var(--hue-primary), 84%, 65%);
+  box-shadow: 0 6px 20px 0 hsl(var(--hue-primary), 58%, 68%);
 }
 
 [data-theme="dark"] .btn-primary {
-  box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.4);
 }
 
 [data-theme="dark"] .btn-primary:hover {
-  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.55);
 }
 
 .btn-secondary {
@@ -231,14 +236,15 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Glassmorphism Surface */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(253, 252, 250, 0.7);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(253, 252, 250, 0.4);
   box-shadow: var(--shadow-glass);
+  transition: border-color var(--transition-normal), background-color var(--transition-normal);
 }
 
 [data-theme="dark"] .glass-panel {
-  background: rgba(30, 41, 59, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(20, 31, 26, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
