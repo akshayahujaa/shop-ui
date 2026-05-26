@@ -92,6 +92,7 @@ body {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
   margin-top: 3rem;
+  padding: 16px;
 }
 
 .metric-card {
