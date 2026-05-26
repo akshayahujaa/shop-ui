@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Fonts */
+  --font-header: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+
+  /* HSL Base Hue Values */
+  --hue-primary: 156;    /* Forest / Hunter Green */
+  --hue-success: 142;    /* Emerald */
+  --hue-warning: 32;     /* Warm Terracotta / Ochre */
+  --hue-error: 355;      /* Crimson Red */
+  --hue-wishlist: 12;    /* Coral Sand */
+
+  /* Light Theme Variables */
+  --bg-primary: hsl(36, 24%, 96%);      /* Champagne Sand */
+  --bg-secondary: hsl(36, 18%, 91%);    /* Soft Oatmeal */
+  --surface: hsl(36, 30%, 99%);         /* Warm Cream Ivory */
+  --surface-hover: hsl(36, 16%, 95%);
+  
+  --text-primary: hsl(24, 20%, 10%);    /* Soft Charcoal Black */
+  --text-secondary: hsl(24, 10%, 40%);  /* Muted Charcoal */
+  --text-muted: hsl(24, 8%, 68%);
+
+  --border-color: hsl(36, 15%, 87%);    /* Warm Border */
+  --border-color-hover: hsl(36, 15%, 76%);
+
+  /* Core Accent Colors */
+  --primary: hsl(var(--hue-primary), 58%, 32%);        /* Deep Forest Green */
+  --primary-hover: hsl(var(--hue-primary), 58%, 24%);  /* Darker Forest Green */
+  --primary-light: hsl(var(--hue-primary), 58%, 93%);
+  
+  --success: hsl(var(--hue-success), 72%, 35%);
+  --success-light: hsl(var(--hue-success), 72%, 94%);
+  
+  --warning: hsl(var(--hue-warning), 90%, 42%);
+  --warning-light: hsl(var(--hue-warning), 90%, 93%);
+  
+  --error: hsl(var(--hue-error), 78%, 46%);
+  --error-light: hsl(var(--hue-error), 78%, 95%);
+
+  --wishlist: hsl(var(--hue-wishlist), 85%, 52%);
+
+  /* Shadow Design */
+  --shadow-sm: 0 2px 4px rgba(43, 62, 53, 0.02), 0 1px 2px rgba(43, 62, 53, 0.03);
+  --shadow-md: 0 10px 15px -3px rgba(43, 62, 53, 0.04), 0 4px 6px -2px rgba(43, 62, 53, 0.02);
+  --shadow-lg: 0 20px 25px -5px rgba(43, 62, 53, 0.06), 0 10px 10px -5px rgba(43, 62, 53, 0.03);
+  --shadow-glass: 0 8px 32px 0 rgba(43, 62, 53, 0.04);
+
+  /* Border Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  /* Layout Constraints */
+  --header-height: 80px;
+  --max-width: 1400px;
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Theme Variables */
+[data-theme="dark"] {
+  --bg-primary: hsl(156, 18%, 10%);      /* Forest Charcoal */
+  --bg-secondary: hsl(156, 20%, 7%);     /* Very Deep Forest Black */
+  --surface: hsl(156, 14%, 15%);         /* Warm Hunter Grey */
+  --surface-hover: hsl(156, 14%, 19%);
+  
+  --text-primary: hsl(40, 25%, 97%);     /* Warm Cream Text */
+  --text-secondary: hsl(40, 12%, 78%);   /* Muted Cream */
+  --text-muted: hsl(40, 8%, 52%);
+
+  --border-color: hsl(156, 12%, 22%);    /* Deep Warm Border */
+  --border-color-hover: hsl(156, 12%, 30%);
+
+  --primary-light: hsl(var(--hue-primary), 58%, 18%);
+  --success-light: hsl(var(--hue-success), 72%, 12%);
+  --warning-light: hsl(var(--hue-warning), 90%, 12%);
+  --error-light: hsl(var(--hue-error), 84%, 15%);
+  
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.45), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
