@@ -85,7 +85,7 @@ export const Home = () => {
             <span className="eyebrow">Discover</span>
             <h1>Shop trendy fashion, tech and everyday essentials in one premium marketplace.</h1>
             <p>
-              Experience a sleek frontend inspired by Myntra and Amazon with curated categories, fast searches, and smart checkout.
+              Experience a sleek frontend with curated categories, fast searches, and smart checkout.
             </p>
             <div className="hero-actions">
               <Link to="/products" className="btn btn-primary">
