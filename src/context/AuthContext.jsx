@@ -2,7 +2,6 @@ import { createContext, useState, useEffect, useContext } from 'react';
 import { authService } from '../services/auth.service';
 import { userService } from '../services/user.service';
 import { STORAGE_KEYS } from '../utils/constants';
-import { storage } from '../utils/storage';
 
 const AuthContext = createContext();
 
@@ -21,7 +20,7 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {
       console.error('Failed to load user profile:', err);
       // Clean up token if fetch fails
-      storage.remove(STORAGE_KEYS.ACCESS_TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
       setUser(null);
       setIsAuthenticated(false);
     } finally {
@@ -41,7 +40,7 @@ export const AuthProvider = ({ children }) => {
     const handleAuthExpired = () => {
       setUser(null);
       setIsAuthenticated(false);
-      storage.remove(STORAGE_KEYS.ACCESS_TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
     };
 
     window.addEventListener('auth-expired', handleAuthExpired);
@@ -55,7 +54,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await authService.login({ email, password });
       if (res.success && res.data) {
-        storage.set(STORAGE_KEYS.ACCESS_TOKEN, res.data.accessToken);
+        localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, res.data.accessToken);
         setUser(res.data.user);
         setIsAuthenticated(true);
         return res;
@@ -74,7 +73,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await authService.register(userData);
       if (res.success && res.data) {
-        storage.set(STORAGE_KEYS.ACCESS_TOKEN, res.data.accessToken);
+        localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, res.data.accessToken);
         setUser(res.data.user);
         setIsAuthenticated(true);
         return res;
@@ -94,7 +93,7 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {
       console.error('Logout error on backend:', err);
     } finally {
-      storage.remove(STORAGE_KEYS.ACCESS_TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
       setUser(null);
       setIsAuthenticated(false);
     }
