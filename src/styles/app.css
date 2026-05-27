@@ -631,6 +631,49 @@ body {
   grid-template-columns: 1.5fr 0.8fr 0.8fr;
 }
 
+.quantity-controller {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 4px 12px;
+  height: 48px;
+}
+
+.btn-quantity {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.35rem;
+  font-weight: 600;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-quantity:hover {
+  background-color: var(--border-color);
+}
+
+.btn-quantity:active {
+  transform: scale(0.92);
+}
+
+.quantity-display {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  min-width: 28px;
+  text-align: center;
+}
+
 @media (max-width: 720px) {
   .search-form {
     display: grid;

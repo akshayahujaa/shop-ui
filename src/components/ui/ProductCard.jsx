@@ -1,11 +1,62 @@
 import { Link } from 'react-router-dom';
 import { RatingStars } from './RatingStars';
 import { formatCurrency } from '../../utils/format.util';
+import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
+import { toast } from 'react-hot-toast';
 
 export const ProductCard = ({ product, onAddToCart, onAddToWishlist }) => {
+  const { isAuthenticated } = useAuth();
+  const { items, addToCart, updateQuantity, removeFromCart } = useCart();
+
   const price = product.discountPrice ? product.discountPrice : product.price;
   const savings = product.discountPrice ? product.price - product.discountPrice : 0;
   const image = product.images?.[0] || '/placeholder-product.png';
+
+  // Find if product is already in cart
+  const cartItem = items.find((item) => item.product?._id === product._id || item.product === product._id);
+  const quantityInCart = cartItem ? cartItem.quantity : 0;
+
+  const handleAddToCart = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!isAuthenticated) {
+      return toast.error('Login to add items to cart.');
+    }
+    try {
+      await addToCart(product._id, 1, price);
+      toast.success('Added to cart.');
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Unable to add to cart.');
+    }
+  };
+
+  const handleIncrease = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      await updateQuantity(product._id, quantityInCart + 1);
+      toast.success('Quantity updated.');
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Unable to update quantity.');
+    }
+  };
+
+  const handleDecrease = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      if (quantityInCart > 1) {
+        await updateQuantity(product._id, quantityInCart - 1);
+        toast.success('Quantity updated.');
+      } else {
+        await removeFromCart(product._id);
+        toast.success('Removed from cart.');
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Unable to update quantity.');
+    }
+  };
 
   return (
     <article className="product-card glass-panel">
@@ -31,9 +82,21 @@ export const ProductCard = ({ product, onAddToCart, onAddToWishlist }) => {
         {savings > 0 && <div className="product-savings">Save {formatCurrency(savings)}</div>}
       </div>
       <div className="product-card-actions">
-        <button type="button" className="btn btn-primary" onClick={onAddToCart}>
-          Add to Cart
-        </button>
+        {quantityInCart > 0 ? (
+          <div className="quantity-controller">
+            <button type="button" className="btn-quantity" onClick={handleDecrease}>
+              -
+            </button>
+            <span className="quantity-display">{quantityInCart}</span>
+            <button type="button" className="btn-quantity" onClick={handleIncrease}>
+              +
+            </button>
+          </div>
+        ) : (
+          <button type="button" className="btn btn-primary" onClick={handleAddToCart}>
+            Add to Cart
+          </button>
+        )}
         <button type="button" className="btn btn-secondary" onClick={onAddToWishlist}>
           Wishlist
         </button>

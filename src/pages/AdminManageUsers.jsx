@@ -3,8 +3,10 @@ import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import adminService from '../services/admin.service';
 import { AdminSidebar } from '../components/common/AdminSidebar/AdminSidebar';
+import { useAuth } from '../context/AuthContext';
 
 export const AdminManageUsers = () => {
+  const { user: currentUser } = useAuth();
   const [users, setUsers] = useState([]);
   const [pagination, setPagination] = useState({
     currentPage: 1,
@@ -47,6 +49,15 @@ export const AdminManageUsers = () => {
   };
 
   const handleRoleChange = async (userId, newRole) => {
+    if (userId === currentUser?._id && newRole !== 'admin') {
+      const otherAdminExists = users.some(
+        (u) => u.role === 'admin' && u.isActive !== false && u._id !== currentUser?._id
+      );
+      if (!otherAdminExists) {
+        return toast.error('Action denied. You are the only active Admin. You must assign another Admin first.');
+      }
+    }
+
     try {
       await adminService.updateUserRole(userId, newRole);
       toast.success('User role updated successfully.');
@@ -61,6 +72,15 @@ export const AdminManageUsers = () => {
 
   const handleToggleStatus = async (userId, currentStatus) => {
     const nextStatus = !currentStatus;
+    if (userId === currentUser?._id && !nextStatus) {
+      const otherAdminExists = users.some(
+        (u) => u.role === 'admin' && u.isActive !== false && u._id !== currentUser?._id
+      );
+      if (!otherAdminExists) {
+        return toast.error('Action denied. You are the only active Admin. You must assign another Admin first.');
+      }
+    }
+
     try {
       await adminService.toggleUserStatus(userId, nextStatus);
       toast.success(nextStatus ? 'User account activated.' : 'User account deactivated.');
