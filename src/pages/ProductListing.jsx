@@ -152,7 +152,7 @@ export const ProductListing = () => {
 
   const handleCategory = (categoryId) => {
     const nextParams = new URLSearchParams(searchParams.toString());
-    if (selectedCategory === categoryId) {
+    if (!categoryId) {
       nextParams.delete('category');
     } else {
       nextParams.set('category', categoryId);
@@ -194,7 +194,7 @@ export const ProductListing = () => {
           </div>
 
           <form className="search-form" onSubmit={handleSearch} style={{ display: 'grid', gap: '16px', marginBottom: '28px' }}>
-            <div style={{ display: 'grid', gap: '16px', gridTemplateColumns: '1.5fr 0.8fr' }}>
+            <div className="search-controls">
               <input
                 type="text"
                 value={searchTerm}
@@ -202,6 +202,19 @@ export const ProductListing = () => {
                 className="input-field"
                 placeholder="Search for products, brands or styles"
               />
+              <select
+                value={selectedCategory}
+                onChange={(e) => handleCategory(e.target.value)}
+                className="input-field"
+                style={{ minWidth: '180px' }}
+              >
+                <option value="">All categories</option>
+                {categories.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
               <select value={sortOrder} onChange={handleSort} className="input-field" style={{ minWidth: '180px' }}>
                 <option value="createdAt">Newest arrivals</option>
                 <option value="price_asc">Price: Low to high</option>
@@ -210,30 +223,6 @@ export const ProductListing = () => {
               </select>
             </div>
           </form>
-
-          <div className="category-chip-list" style={{ marginBottom: '26px' }}>
-            <span className="filter-pill">Filters:</span>
-            {categories.map((category) => (
-              <button
-                key={category._id}
-                type="button"
-                className={`category-chip ${selectedCategory === category._id ? 'active' : ''}`}
-                onClick={() => handleCategory(category._id)}
-              >
-                {category.name}
-              </button>
-            ))}
-            {selectedCategory && (
-              <button
-                type="button"
-                className="category-chip"
-                style={{ background: 'var(--bg-secondary)' }}
-                onClick={() => handleCategory(selectedCategory)}
-              >
-                Clear filter
-              </button>
-            )}
-          </div>
 
           <div className="section-heading" style={{ marginBottom: '18px' }}>
             <div>
