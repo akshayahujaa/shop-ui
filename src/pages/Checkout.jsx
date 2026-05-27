@@ -122,7 +122,7 @@ export const Checkout = () => {
       if (paymentMethod === PAYMENT_METHODS.COD) {
         clearCart();
         toast.success('Order placed successfully.');
-        navigate('/orders');
+        navigate(`/orders/${orderId}`);
         setLoading(false);
         return;
       }
@@ -149,7 +149,7 @@ export const Checkout = () => {
               await paymentService.verifyPayment(verifyPayload);
               clearCart();
               toast.success('Payment successful! Order placed.');
-              navigate('/orders');
+              navigate(`/orders/${orderId}`);
             } catch (verifyErr) {
               console.error('Payment verification failed:', verifyErr);
               toast.error('Payment verification failed. Please contact support.');

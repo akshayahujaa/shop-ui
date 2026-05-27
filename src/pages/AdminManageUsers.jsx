@@ -6,7 +6,7 @@ import { AdminSidebar } from '../components/common/AdminSidebar/AdminSidebar';
 import { useAuth } from '../context/AuthContext';
 
 export const AdminManageUsers = () => {
-  const { user: currentUser } = useAuth();
+  const { user: currentUser, logout } = useAuth();
   const [users, setUsers] = useState([]);
   const [pagination, setPagination] = useState({
     currentPage: 1,
@@ -61,9 +61,15 @@ export const AdminManageUsers = () => {
     try {
       await adminService.updateUserRole(userId, newRole);
       toast.success('User role updated successfully.');
-      setUsers((curr) =>
-        curr.map((u) => (u._id === userId ? { ...u, role: newRole } : u))
-      );
+      
+      if (userId === currentUser?._id) {
+        toast('Your role has changed. Logging out...', { icon: 'ℹ️' });
+        setTimeout(() => logout(), 1500);
+      } else {
+        setUsers((curr) =>
+          curr.map((u) => (u._id === userId ? { ...u, role: newRole } : u))
+        );
+      }
     } catch (err) {
       console.error('Failed to change role', err);
       toast.error(err.response?.data?.message || 'Failed to update user role.');
@@ -84,9 +90,15 @@ export const AdminManageUsers = () => {
     try {
       await adminService.toggleUserStatus(userId, nextStatus);
       toast.success(nextStatus ? 'User account activated.' : 'User account deactivated.');
-      setUsers((curr) =>
-        curr.map((u) => (u._id === userId ? { ...u, isActive: nextStatus } : u))
-      );
+      
+      if (userId === currentUser?._id && !nextStatus) {
+        toast('Your account has been deactivated. Logging out...', { icon: 'ℹ️' });
+        setTimeout(() => logout(), 1500);
+      } else {
+        setUsers((curr) =>
+          curr.map((u) => (u._id === userId ? { ...u, isActive: nextStatus } : u))
+        );
+      }
     } catch (err) {
       console.error('Failed to toggle user status', err);
       toast.error(err.response?.data?.message || 'Failed to update user status.');
